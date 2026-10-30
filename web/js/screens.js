@@ -497,7 +497,11 @@ function bind() {
     renderPreview();
   });
   document.querySelectorAll('input[name="scr-source"]').forEach((r) => r.addEventListener('change', () => setSource(r.value)));
-  $('scr-image').addEventListener('change', (e) => loadImage(e.target.files[0]));
+  $('scr-image').addEventListener('change', (e) => {
+    loadImage(e.target.files[0]);
+    // Let the same file be picked again, e.g. after a failed one.
+    e.target.value = '';
+  });
   const drop = $('scr-drop');
   drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('is-over'); });
   drop.addEventListener('dragleave', () => drop.classList.remove('is-over'));
